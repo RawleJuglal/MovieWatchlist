@@ -1,0 +1,31 @@
+div#--splash-splash-container{
+    padding-top:19px;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
+
+div#--splash-splash-box{
+    min-height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+img#--splash-icon{
+    margin-bottom:10px;
+}
+p#--splash-text,p#--no-data-text{
+    color:#DFDDDD;
+    font-size:18px;
+    max-width: 321px;
+    text-align: center;
+}
+
+p#--no-data-text{
+    justify-self: center;
+    align-self: center;
+}

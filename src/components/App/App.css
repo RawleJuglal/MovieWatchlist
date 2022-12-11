@@ -1,0 +1,73 @@
+div#--app-app-container{
+    max-width: 550px;
+    min-height:100vh;
+    margin:0 auto;
+    background-color:white;
+}
+
+header#--app-header-container{
+    background:url('./images/header-bg.png');
+    background-color:rgba(0,0,0,.8);
+    height:25vh;
+    display:grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 12% 38% 38% 12%;
+    grid-template-areas: 
+    "gutter title title gutter2"
+    "gutter link link gutter2";
+    position:relative;
+}
+
+h1#--app-page-title{
+    font-size:42.79px;
+    margin-top:41px;
+    color:#FFF;
+    font-weight:bold;
+    grid-area:title;
+    text-align: center;
+}
+
+#--app-switch-page-link{
+    color:#FFF;
+    text-decoration: none;
+    font-size:14px;
+    grid-area:link;
+    --bs-btn-padding-x:unset !important;
+    --bs-btn-padding-y:unset !important;
+    height:20px !important;
+    margin-top:20px;
+}
+
+#--app-switch-page-link:hover{
+    cursor: pointer;
+}
+
+div#--app-content-container{
+    height:75vh;
+}
+
+
+@media screen and (min-width:550px) {
+    header#--app-header-container{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content: space-between;
+        align-items: center;
+        /* grid-template-rows: 1fr;
+        grid-template-columns: 12% 38% 38% 12%;
+        grid-template-areas: 
+        "gutter title link gutter2";  */
+    }
+
+    h1#--app-page-title, #--app-switch-page-link{
+        margin-top:unset;
+    }
+    h1#--app-page-title{
+        margin-left:42px;
+    }
+    #--app-switch-page-link{
+        margin-right:42px;
+    }
+
+}

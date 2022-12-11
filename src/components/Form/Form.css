@@ -1,0 +1,24 @@
+#--form-form-container{
+    margin:0 9%;
+    width:100%;
+    max-width:462px;
+    position: absolute;
+    bottom:-19px;
+}
+
+.--form-search-btn{
+    font-family:'Inter', sans-serif !important;
+    font-size:14px;
+}
+
+@media screen and (max-width:550px) {
+    #--form-form-container{
+        max-width:83vw;
+    }
+}
+
+@media screen and (min-width:550px) {
+    #--form-form-container{
+        margin:0 44px;
+    }
+}

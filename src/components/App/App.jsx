@@ -7,8 +7,15 @@ import Splash from '../Splash/Splash';
 import Movie from '../Movie/Movie'
 
 function App() {
-  const [state,setState] = React.useState({fullInfoArr:[], searched:false})
-  
+  const [state,setState] = React.useState({fullInfoArr:[], watchList:[], searched:false})
+  const styles = {
+    content:{
+      height: state.fullInfoArr.length > 0 ? 'unset' : '75vh',
+      minHeight: state.fullInfoArr.length > 0 ? '75vh' : 'unset'
+    }
+  };
+
+
   React.useEffect(()=>{
     if(state.searchResults !== undefined){
       filterSearchResults()
@@ -53,6 +60,10 @@ function App() {
       return {...prevState, term:newTerm}
     })
   }
+
+  function addToWatchlist(id){
+    console.log(id);
+  }
   
   return (
     <div id='--app-app-container'>
@@ -61,8 +72,8 @@ function App() {
         <Button id="--app-switch-page-link" variant="link">My Watchlist</Button>
         <Form handleChange={handleInputChange} handleSearch={searchForTerm}/>
       </header>
-      <div id='--app-content-container'>
-        {state.fullInfoArr.length > 0 ? <div id='--shelf-shelf-container'><Movie data={state.fullInfoArr}/></div> : <Splash searched={state.searched}/>}
+      <div id='--app-content-container' className='content' style={styles.content}>
+        {state.fullInfoArr.length > 0 ? <div id='--shelf-shelf-container'><Movie data={state.fullInfoArr} handleAdd={addToWatchlist}/></div> : <Splash searched={state.searched}/>}
         
       </div>
     </div>

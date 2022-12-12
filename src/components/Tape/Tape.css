@@ -1,0 +1,90 @@
+div.--tape-tape-container{
+    margin:9% 9%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:19px;
+    padding-bottom:19px;
+    border-bottom:1px solid #E5E7EB;
+}
+
+div#--tape-image-container{
+    max-width:99px;
+}
+
+div#--tape-info-container{
+    display:flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+}
+
+/* div#--tape-plot-container{
+    min-width:262px;
+} */
+
+div#--tape-title-rating-container{
+    display:flex;
+    justify-content: flex-start;
+}
+
+div#--tape-runtime-genre-watch-container{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap:19px;
+}
+
+img#--tape-img{
+    width:99px;
+    height:147.41px;
+}
+
+span#--tape-info-rating, p#--tape-info-runtime, p#--tape-info-genre,.--tape-info-watchlist-link, p#--tape-info-plot{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    color:#111827;
+}
+
+span#--tape-info-title{
+    font-size:18px;
+    font-weight: 500;
+    line-height: 20px;
+    color:#000000;
+}
+
+span#--tape-info-rating{
+    margin-left:19px;
+}
+
+.--tape-info-watchlist-link{
+    text-decoration: none;
+    --bs-btn-padding-x:unset !important;
+    --bs-btn-padding-y:unset !important;
+    height:20px !important;
+}
+
+p#--tape-info-plot{
+    max-width:342px;
+    margin-top:8px;
+    color:#6B7280;
+}
+
+.--tape-tape-container:last-of-type{
+    /* padding-bottom:19px; */
+    border-bottom:unset;
+}
+
+@media screen and (min-width:550px) {
+    div.--tape-tape-container:first-of-type{
+        margin-top:7%;
+    }
+    div.--tape-tape-container{
+        margin:4% 7%;
+    }
+
+    p#--tape-info-plot{
+        margin-top:unset;
+        margin-left:8px;
+    }
+}

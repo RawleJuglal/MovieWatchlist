@@ -60,6 +60,10 @@ div#--app-content-container{
         "gutter title link gutter2";  */
     }
 
+    div#--app-content-container{
+        min-height:50vh !important;
+    }
+
     h1#--app-page-title, #--app-switch-page-link{
         margin-top:unset;
     }

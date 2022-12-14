@@ -6,7 +6,7 @@ div#--app-app-container{
 }
 
 header#--app-header-container{
-    background:url('./images/header-bg.png');
+    background:url('/images/header-bg.png');
     background-color:rgba(0,0,0,.8);
     height:25vh;
     display:grid;

@@ -84,7 +84,7 @@ function App() {
     // console.log('first api call')
     setLatestTerm(term)
     clearInfoArr()
-    let res = await fetch(`http://www.omdbapi.com/?s=${term}&page=${page}&apikey=7214b8df`)
+    let res = await fetch(`https://www.omdbapi.com/?s=${term}&page=${page}&apikey=7214b8df`)
     let data = await res.json();
     // console.log(data)
     setPaginationInfo(data.totalResults, page)
@@ -155,7 +155,7 @@ function App() {
   async function secondAPICall(title){
     // console.log('second api call')
     // console.log(state)
-    let response = await fetch(`http://www.omdbapi.com/?t=${title}&apikey=7214b8df`)
+    let response = await fetch(`https://www.omdbapi.com/?t=${title}&apikey=7214b8df`)
     let data = await response.json();
     // console.log(data)
     let newObj = data;
@@ -208,13 +208,16 @@ function App() {
     // console.log(isFound)
 
     if(!isFound){
-      let fullInfoCopy = [...state.fullInfoArr]
+      // let fullInfoCopy = [...state.fullInfoArr]
+      let fullInfoCopy = state.fullInfoArr
       let newObj = fullInfoCopy.filter((ele)=>{
         if(ele.imdbID === id){
           return ele;
         }
       })
-      let prevWatchList = [...state.watchList];
+      // let prevWatchList = [...state.watchList];
+      let prevWatchList = state.watchList
+      // let newWatchList = [...prevWatchList, ...newObj]
       let newWatchList = [...prevWatchList, ...newObj]
       changeModalMessage('added')
       resetModal()

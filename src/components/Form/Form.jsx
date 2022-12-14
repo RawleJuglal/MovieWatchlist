@@ -14,7 +14,7 @@ export default function Form(props){
                 aria-describedby="basic-addon2"
                 onChange={(event)=>props.handleChange(event)}
                 />
-                <Button className='--form-search-btn' variant="light" id="button-addon2" onClick={props.handleSearch}>
+                <Button disabled={props.watch} className='--form-search-btn' variant="light" id="button-addon2" onClick={props.handleSearch}>
                 Search
                 </Button>
             </InputGroup>

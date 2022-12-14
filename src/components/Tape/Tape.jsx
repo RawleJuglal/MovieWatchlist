@@ -3,6 +3,7 @@ import './Tape.css'
 import Button from 'react-bootstrap/Button';
 import { UilStar } from '@iconscout/react-unicons'
 import { UilPlusCircle } from '@iconscout/react-unicons'
+import { UilMinusCircle } from '@iconscout/react-unicons'
 
 export default function Tape(props){
     return (
@@ -13,17 +14,21 @@ export default function Tape(props){
                 <div id="--tape-info-container">
                     <div id="--tape-title-rating-container">
                        <p>
-                            <span id="--tape-info-title">{props.data.Title}</span>
-                            <span id="--tape-info-rating"><UilStar size="15" color="#FEC654" /> {props.data.Ratings[0].Value.replace('/10', '')}</span>
+                            {props.data.Title && <span id="--tape-info-title">{props.data.Title}</span>}
+                            {props.data.Ratings.length > 0 && <span id="--tape-info-rating"><UilStar size="15" color="#FEC654" /> {props.data.Ratings[0].Value.replace('/10', '')}</span>}
                         </p> 
                     </div>
                     <div id="--tape-runtime-genre-watch-container">
-                        <p id="--tape-info-runtime">{props.data.Runtime}</p>
-                        <p id="--tape-info-genre">{props.data.Genre}</p>
-                        <Button name={props.data.imdbID} className="--tape-info-watchlist-link" variant="link" onClick={(event)=>{props.addWatch(event.target.name)}}><UilPlusCircle size="15" color="#111827" /> Watchlist</Button>
+                        {props.data.Runtime && <p id="--tape-info-runtime">{props.data.Runtime}</p>}
+                        {props.data.Genre && <p id="--tape-info-genre">{props.data.Genre}</p>}
+                        <Button 
+                            name={props.data.imdbID} 
+                            className="--tape-info-watchlist-link" 
+                            variant="link" 
+                            onClick={props.watch ? (event)=>{props.removeWatch(event.target.name)} : (event)=>{props.addWatch(event.target.name)}}>{props.watch ? <UilMinusCircle size="15" color="#111827" /> : <UilPlusCircle size="15" color="#111827" />} Watchlist</Button>
                     </div>
                     <div id="--tape-plot-container">
-                        <p id="--tape-info-plot">{props.data.Plot}</p>
+                        {props.data.Plot && <p id="--tape-info-plot">{props.data.Plot}</p>}
                     </div> 
                 </div>
                     

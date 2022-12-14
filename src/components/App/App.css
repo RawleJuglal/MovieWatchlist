@@ -18,20 +18,22 @@ header#--app-header-container{
     position:relative;
 }
 
-h1#--app-page-title{
+#--app-page-title{
     font-size:42.79px;
     margin-top:41px;
     color:#FFF;
     font-weight:bold;
     grid-area:title;
     text-align: center;
+    text-decoration:none;
+    --bs-btn-padding-x:unset !important;
+    --bs-btn-padding-y:unset !important;
 }
 
 #--app-switch-page-link{
     color:#FFF;
     text-decoration: none;
     font-size:14px;
-    grid-area:link;
     --bs-btn-padding-x:unset !important;
     --bs-btn-padding-y:unset !important;
     height:20px !important;
@@ -44,6 +46,12 @@ h1#--app-page-title{
 
 div#--app-content-container{
     height:75vh;
+}
+
+.modal-header{
+    justify-content: center !important;
+    border-radius: 3px !important;
+    border: 1px solid white !important;
 }
 
 
@@ -64,14 +72,13 @@ div#--app-content-container{
         min-height:50vh !important;
     }
 
-    h1#--app-page-title, #--app-switch-page-link{
+    #--app-page-title, #--app-switch-page-link{
         margin-top:unset;
     }
-    h1#--app-page-title{
+    #--app-page-title{
         margin-left:42px;
     }
     #--app-switch-page-link{
         margin-right:42px;
     }
-
 }

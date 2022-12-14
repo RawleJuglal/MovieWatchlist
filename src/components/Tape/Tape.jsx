@@ -6,10 +6,11 @@ import { UilPlusCircle } from '@iconscout/react-unicons'
 import { UilMinusCircle } from '@iconscout/react-unicons'
 
 export default function Tape(props){
+    // console.log(props.data.Poster)
     return (
         <div className="--tape-tape-container">
                 <div id="--tape-image-container">
-                    <img id="--tape-img" src={props.data.Poster} />
+                    <img id="--tape-img" src={props.data.Poster == 'N/A' ? './images/no-image.jpg' : props.data.Poster } />
                 </div>
                 <div id="--tape-info-container">
                     <div id="--tape-title-rating-container">

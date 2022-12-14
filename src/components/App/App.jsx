@@ -33,38 +33,38 @@ function App() {
   },[state.searchResults])
 
   function searchForTerm(action){
-    // console.log(`calling searchForTerm`)
-    // startingNewSearch()
-    // console.log(action)
-    // if(action.target.name == 'next'){
-    //   let nextPage = handleNext()
-    //   callApi(state.term, nextPage)
-    // } else if(action.target.name == 'prev'){
-    //   let prevPage = handlePrev()
-    //   callApi(state.term, prevPage)
-    // } else if (state.lastSearched !== state.term){
-    //   resetPaginationInfo()
-    //   callApi(state.term, state.pagination.currentPage)
-    // } else {
-    //   changeModalMessage('Already Searched')
-    //   resetModal()
-    // }
+    console.log(`calling searchForTerm`)
+    startingNewSearch()
+    console.log(action)
     if(action.target.name == 'next'){
-      console.log('next was clicked')
-      if(state.pagination.currentPage + 1 < state.pagination.pages){
-        console.log('next page should be available')
-        callApi(state.term, nextPage)
-      } else {
-        console.log('Error we should not have this button enabled');
-      }
-    } else if(state.lastSearched !== state.term){
-      console.log('lastSearch was not the same as term to search now')
+      let nextPage = handleNext()
+      callApi(state.term, nextPage)
+    } else if(action.target.name == 'prev'){
+      let prevPage = handlePrev()
+      callApi(state.term, prevPage)
+    } else if (state.lastSearched !== state.term){
+      resetPaginationInfo()
       callApi(state.term, state.pagination.currentPage)
     } else {
-      console.log('we just searched this term')
       changeModalMessage('Already Searched')
       resetModal()
-    } 
+    }
+    // if(action.target.name == 'next'){
+    //   console.log('next was clicked')
+    //   if(state.pagination.currentPage + 1 < state.pagination.pages){
+    //     console.log('next page should be available')
+    //     callApi(state.term, nextPage)
+    //   } else {
+    //     console.log('Error we should not have this button enabled');
+    //   }
+    // } else if(state.lastSearched !== state.term){
+    //   console.log('lastSearch was not the same as term to search now')
+    //   callApi(state.term, state.pagination.currentPage)
+    // } else {
+    //   console.log('we just searched this term')
+    //   changeModalMessage('Already Searched')
+    //   resetModal()
+    // } 
   }
 
   function handleNext(){
@@ -273,6 +273,11 @@ function App() {
       </header>
       <div id='--app-content-container' className='content' style={styles.content}>
         {state.myList ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.watchList} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : !state.myList && state.fullInfoArr.length > 0 ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.fullInfoArr} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : <Splash searched={state.searched}/>}
+        {state.fullInfoArr.length > 0 
+          && state.searchResults.totalResults > 10
+            && <Button disabled={state.pagination.currentPage === 1} name="prev" onClick={(event)=>searchForTerm(event)} id="--app-prev-page" className='prev-page' variant="secondary">
+                  {/* <UilAngleRightB size="15" color="#111827" /> */}Prev
+                </Button>}
         {state.fullInfoArr.length > 0 
           && state.searchResults.totalResults > 10
             && <Button disabled={state.pagination.currentPage === state.pagination.pages} name="next" onClick={(event)=>searchForTerm(event)} id="--app-next-page" className='next-page' variant="secondary">

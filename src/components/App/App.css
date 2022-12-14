@@ -32,12 +32,12 @@ header#--app-header-container{
 
 #--app-switch-page-link{
     color:#FFF;
+    grid-area:link;
     text-decoration: none;
     font-size:14px;
     --bs-btn-padding-x:unset !important;
     --bs-btn-padding-y:unset !important;
     height:20px !important;
-    margin-top:20px;
 }
 
 #--app-switch-page-link:hover{
@@ -52,6 +52,12 @@ div#--app-content-container{
     justify-content: center !important;
     border-radius: 3px !important;
     border: 1px solid white !important;
+}
+
+div#--app-pagination-container{
+    display:flex;
+    justify-content: space-evenly;
+    padding-bottom:20px;
 }
 
 

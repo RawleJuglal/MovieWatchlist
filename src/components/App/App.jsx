@@ -26,16 +26,16 @@ function App() {
 
 
   React.useEffect(()=>{
-    console.log('calling useEffect')
+    // console.log('calling useEffect')
     if(state.searchResults !== undefined){
       filterSearchResults()
     } 
   },[state.searchResults])
 
   function searchForTerm(action){
-    console.log(`calling searchForTerm`)
+    // console.log(`calling searchForTerm`)
     startingNewSearch()
-    console.log(action)
+    // console.log(action)
     if(action.target.name == 'next'){
       let nextPage = handleNext()
       callApi(state.term, nextPage)
@@ -110,14 +110,14 @@ function App() {
   function setPaginationInfo(entries, cPage){
     let newPagination = determinePagination(entries)
     if(state.pagination.pages === null){
-      console.log('this is our first time setting pages')
+      // console.log('this is our first time setting pages')
       newPagination.currentPage = 1;
       // console.log(newPagination)
       setState((prevState)=>{
         return {...prevState, pagination:newPagination}
       })
     } else {
-      console.log('we have pages set')
+      // console.log('we have pages set')
       newPagination.currentPage = cPage;
       setState((prevState)=>{
         return {...prevState, pagination:newPagination}
@@ -156,10 +156,21 @@ function App() {
     let data = await response.json();
     // console.log(data)
     let newObj = data;
-    let newFullInfoArr = state.fullInfoArr;
-    newFullInfoArr.push(newObj)
+    let newFullInfoArr;
+      // console.log(state.fullInfoArr)
+      newFullInfoArr = state.fullInfoArr;
+      newFullInfoArr.push(newObj)
+      // console.log(newFullInfoArr)
+      setState((prevState)=>{
+        return {...prevState, fullInfoArr:newFullInfoArr}
+      })
+      searchForDuplicates()
+  }
+
+  function searchForDuplicates(entry){
+    let noDuplicates = [...new Map(state.fullInfoArr.map((m)=>[m.imdbID, m])).values()]
     setState((prevState)=>{
-      return {...prevState, fullInfoArr:newFullInfoArr}
+      return {...prevState, fullInfoArr:noDuplicates}
     })
   }
 
@@ -167,6 +178,7 @@ function App() {
     setState((prevState)=>{
       return {...prevState, searched:true}
     })
+    console.log(state)
   }
 
   
@@ -182,6 +194,7 @@ function App() {
   function addToWatchlist(id){
     // console.log(`calling addToWatchList`)
     let isFound = state.watchList.some((ele)=>{
+      // console.log(ele)
       if(ele.imdbID === id){
         return true;
       } else {
@@ -189,14 +202,17 @@ function App() {
       }
     })
 
+    // console.log(isFound)
+
     if(!isFound){
-      let newObj = state.fullInfoArr.filter((ele)=>{
+      let fullInfoCopy = [...state.fullInfoArr]
+      let newObj = fullInfoCopy.filter((ele)=>{
         if(ele.imdbID === id){
           return ele;
         }
       })
-      let prevWatchList = state.watchList;
-      let newWatchList = prevWatchList.concat(newObj);
+      let prevWatchList = [...state.watchList];
+      let newWatchList = [...prevWatchList, ...newObj]
       changeModalMessage('added')
       resetModal()
       setState((prevState)=>{
@@ -206,7 +222,6 @@ function App() {
       changeModalMessage('Already in watchList')
       resetModal()
     }
-    
   }
 
   function removeFromWatchlist(id){
@@ -273,16 +288,19 @@ function App() {
       </header>
       <div id='--app-content-container' className='content' style={styles.content}>
         {state.myList ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.watchList} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : !state.myList && state.fullInfoArr.length > 0 ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.fullInfoArr} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : <Splash searched={state.searched}/>}
-        {state.fullInfoArr.length > 0 
-          && state.searchResults.totalResults > 10
-            && <Button disabled={state.pagination.currentPage === 1} name="prev" onClick={(event)=>searchForTerm(event)} id="--app-prev-page" className='prev-page' variant="secondary">
-                  {/* <UilAngleRightB size="15" color="#111827" /> */}Prev
-                </Button>}
-        {state.fullInfoArr.length > 0 
-          && state.searchResults.totalResults > 10
-            && <Button disabled={state.pagination.currentPage === state.pagination.pages} name="next" onClick={(event)=>searchForTerm(event)} id="--app-next-page" className='next-page' variant="secondary">
-                  {/* <UilAngleRightB size="15" color="#111827" /> */}Next
-                </Button>}
+        {state.searchResults.totalResults > 10 && <div className="pagination" id="--app-pagination-container">
+          {state.fullInfoArr.length > 0 
+            && state.searchResults.totalResults > 10
+              && <Button disabled={state.pagination.currentPage === 1} name="prev" onClick={(event)=>searchForTerm(event)} id="--app-prev-page" className='prev-page' variant="secondary">
+                    {/* <UilAngleRightB size="15" color="#111827" /> */}Prev
+                  </Button>}
+          {state.fullInfoArr.length > 0 
+            && state.searchResults.totalResults > 10
+              && <Button disabled={state.pagination.currentPage === state.pagination.pages} name="next" onClick={(event)=>searchForTerm(event)} id="--app-next-page" className='next-page' variant="secondary">
+                    {/* <UilAngleRightB size="15" color="#111827" /> */}Next
+                  </Button>}
+        </div>}
+       
 
       </div>
     </div>

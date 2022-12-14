@@ -9,7 +9,7 @@ import Movie from '../Movie/Movie'
 import { UilAngleRightB } from '@iconscout/react-unicons'
 
 function App() {
-  const [state,setState] = React.useState({fullInfoArr:[], watchList:[], pagination:{currentPage:1, pages:null}, modal:{visible:false, message:''}, lastSearched:null, searched:false, myList:false})
+  const [state,setState] = React.useState({fullInfoArr:[], watchList:[], pagination:{currentPage:1, pages:null, isPaginated:false}, modal:{visible:false, message:''}, lastSearched:null, searched:false, myList:false})
   const styles = {
     content:{
       height: state.fullInfoArr.length > 0 ? 'unset' : '75vh',
@@ -20,8 +20,7 @@ function App() {
     },
     modalHeader:{
         backgroundColor:state.modal.message === 'added' ? 'rgba(77, 255, 0, .5)' :  state.modal.message === 'removed' ? 'rgba(77, 255, 0, .5)' : 'rgba(211, 205, 4, .5)'
-    }
-    
+    },
   };
 
 
@@ -126,7 +125,7 @@ function App() {
   }
 
   function resetPaginationInfo(){
-    let resetPagination = {currentPage:1, pages:null}
+    let resetPagination = {currentPage:1, pages:null, isPaginated:false}
     setState((prevState)=>{
       return {...prevState, pagination:resetPagination }
     })
@@ -136,7 +135,11 @@ function App() {
      let fullPages = Math.round(total/10)
      let remainder = total%10;
      let newPages = remainder > 0 ? fullPages +1 : fullPages;
-    return {pages:newPages}
+     if(fullPages > 1){
+      return {pages:newPages, isPaginated:true}
+     } else {
+      return {pages:newPages, isPaginated:false}
+     } 
   }
 
   function filterSearchResults(){
@@ -288,7 +291,7 @@ function App() {
       </header>
       <div id='--app-content-container' className='content' style={styles.content}>
         {state.myList ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.watchList} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : !state.myList && state.fullInfoArr.length > 0 ? <div id='--shelf-shelf-container'><Movie watch={state.myList} data={state.fullInfoArr} handleAdd={addToWatchlist} handleRemove={removeFromWatchlist}/></div> : <Splash searched={state.searched}/>}
-        {state.searchResults.totalResults > 10 && <div className="pagination" id="--app-pagination-container">
+        {state.pagination.isPaginated && <div className="pagination" id="--app-pagination-container">
           {state.fullInfoArr.length > 0 
             && state.searchResults.totalResults > 10
               && <Button disabled={state.pagination.currentPage === 1} name="prev" onClick={(event)=>searchForTerm(event)} id="--app-prev-page" className='prev-page' variant="secondary">
@@ -300,8 +303,6 @@ function App() {
                     {/* <UilAngleRightB size="15" color="#111827" /> */}Next
                   </Button>}
         </div>}
-       
-
       </div>
     </div>
   )
